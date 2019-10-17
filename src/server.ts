@@ -1,10 +1,15 @@
 import express from 'express';
+import dotenv from 'dotenv';
+if (process.env.DOTENV !== 'initialized') {
+  // Load environment variables form `.env` file and merge with variables from environment
+  dotenv.config() || console.log(
+      'Application is configured by env variables and default values.' +
+      ' No .env configuration file was detected.');
+  process.env.DOTENV = 'initialized';
+}
 import { sequelize } from './sequelize';
-
 import { IndexRouter } from './controllers/v0/index.router';
-
 import bodyParser from 'body-parser';
-
 import { V0MODELS } from './controllers/v0/model.index';
 
 (async () => {
@@ -13,7 +18,7 @@ import { V0MODELS } from './controllers/v0/model.index';
 
   const app = express();
   const port = process.env.PORT || 8080; // default port to listen
-  
+
   app.use(bodyParser.json());
 
   //CORS Should be restricted
@@ -29,7 +34,7 @@ import { V0MODELS } from './controllers/v0/model.index';
   app.get( "/", async ( req, res ) => {
     res.send( "/api/v0/" );
   } );
-  
+
 
   // Start the Server
   app.listen( port, () => {
