@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-if (process.env.DOTENV !== 'initialized') {
+if (process.env.DOTENV !== 'initialized' || process.env.AWS_PROFILE !== 'DEPLOYED') {
   // Load environment variables form `.env` file and merge with variables from environment
   dotenv.config() || console.log(
       'Application is configured by env variables and default values.' +
